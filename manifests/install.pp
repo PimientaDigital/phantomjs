@@ -9,20 +9,25 @@ class phantomjs::install {
     ensure => present,
   }
 
-  exec { "clone repository"
+  exec { "phantomjs clone repository":
     command => "git clone git://github.com/ariya/phantomjs.git",
-    require => $::phantomjs::package_dependences,
-    unless => "ls $::phantomjs::app_name"
+    cwd     => "/var/tmp/",
+    require => Package["git"],
+    unless  => "ls -l /var/tmp/$::phantomjs::app_name",
   }
 
-  exec { "build"
-    command => [
-                "cd $::phantomjs::app_name",
-                "git checkout $::phantomjs::version_repository",
-                "./build.sh"
-                ],
-    require => [Exec["clone repository"]],
-    unless => "type $::phantomjs::app_name"
+  exec { "phantomjs version repository":
+    command => "git checkout $::phantomjs::version_repository",
+    cwd     => "/var/tmp/$::phantomjs::app_name",
+    unless  => "git branch | grep $::phantomjs::version_repository",
+    require => [Exec["phantomjs clone repository"]],
+  }
+
+  exec { "phantomjs build":
+    command => "./build.sh",
+    cwd     => "/var/tmp/$::phantomjs::app_name",
+    require => [Exec["phantomjs version repository"]],
+    unless  => "which $::phantomjs::app_name",
   }
 
 }

@@ -24,12 +24,13 @@ class phantomjs::params {
                       "libjpeg-dev",
                       "python",
                       "libx11-dev",
-                      "libxext-dev"
-                              ],
+                      "libxext-dev",
+                      "git"
+                              ]
       $package_dependences = [
                               "git"
-                              ],
-      $app_name = "phantomjs",
+                              ]
+      $app_name = "phantomjs"
       $version_repository = "2.0"
     }
     'RedHat', 'Amazon': {
