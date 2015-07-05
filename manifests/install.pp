@@ -26,6 +26,7 @@ class phantomjs::install {
   exec { "phantomjs build":
     command => "/var/tmp/$::phantomjs::app_name/build.sh --confirm",
     returns => [0, 2, 14],
+    timeout => 360,
     cwd     => "/var/tmp/$::phantomjs::app_name",
     require => [Exec["phantomjs version repository"]],
     unless  => "which $::phantomjs::app_name",
