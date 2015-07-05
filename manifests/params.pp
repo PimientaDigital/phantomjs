@@ -31,7 +31,7 @@ class phantomjs::params {
                               "git"
                               ]
       $app_name = "phantomjs"
-      $version_repository = "2.0"
+      $version_repository = "master"
     }
     'RedHat', 'Amazon': {
       $package_name = 'nil'
