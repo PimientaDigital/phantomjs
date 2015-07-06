@@ -7,6 +7,7 @@ class phantomjs::params {
 
   case $::osfamily {
     'Debian': {
+      $package = "phantomjs"
       $package_develop = [
                       "build-essential",
                       "g++",
@@ -26,7 +27,7 @@ class phantomjs::params {
                       "libx11-dev",
                       "libxext-dev",
                       "git"
-                              ]
+                      ]
       $package_dependences = [
                               "git"
                               ]
